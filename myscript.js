@@ -18,18 +18,20 @@ function getNewId() {
 function render_list() {
     todos = JSON.parse(localStorage.getItem("mytodos"));
     my_list.innerHTML = "";
-    todos.forEach((x) => {
-        let todo_card = `<div class="card p-2 w-50 m-auto my-2">
-                <div class="card-title fs-3">${x.title}</div>
-                <div>${x.desc}</div>
-                <div class="flex">
-                    <button class="btn-danger w-25" id="${x.id}">Delete</button>
-                    <button class="btn-info w-25" id="${x.id}">Edit</button>
-                </div>
+    if (todos) {
+        todos.forEach((x) => {
+            let todo_card = `<div class="card p-2 w-50 m-auto my-2">
+            <div class="card-title fs-3">${x.title}</div>
+            <div>${x.desc}</div>
+            <div class="flex">
+            <button class="btn-danger w-25" id="${x.id}">Delete</button>
+            <button class="btn-info w-25" id="${x.id}">Edit</button>
+            </div>
             </div>`;
-        my_list.innerHTML += todo_card;
-    })
-    console.log(todos);
+            my_list.innerHTML += todo_card;
+        })
+    }
+
 }
 document.addEventListener("click", function (e) {
     if (e.target.innerHTML == "Delete") {
@@ -85,7 +87,7 @@ addBtn.addEventListener("click", function () {
                 </div>
             </div>`;
     my_list.innerHTML += new_todo_card;
-    console.log(todos);
+
     localStorage.setItem("mytodos", JSON.stringify(todos));
     render_list();
 })
