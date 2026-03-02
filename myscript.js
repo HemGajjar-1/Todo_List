@@ -1,4 +1,4 @@
-todos = [];
+var todos = [];
 addBtn = document.getElementById("addTodoBtn");
 my_list = document.getElementById("todo-list");
 title_textbox = document.getElementById("text-title");
@@ -10,12 +10,16 @@ document.addEventListener("DOMContentLoaded", function () {
 })
 
 function getNewId() {
+
     if (todos.length == 0) {
         return 1;
     }
     return todos.length + 1;
 }
 function render_list() {
+    if (localStorage.getItem("mytodos") == null) {
+        localStorage.setItem("mytodos", [])
+    }
     todos = JSON.parse(localStorage.getItem("mytodos"));
     my_list.innerHTML = "";
     if (todos) {
@@ -70,6 +74,7 @@ document.addEventListener("click", function (e) {
 })
 addBtn.addEventListener("click", function () {
     id = getNewId();
+
     mytitle = document.getElementById("text-title").value;
     mydesc = document.getElementById("text-desc").value;
     let new_todo = {
